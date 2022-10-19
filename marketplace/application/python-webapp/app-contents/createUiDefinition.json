@@ -1,0 +1,67 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/0.1.2-preview/CreateUIDefinition.MultiVm.json#",
+  "handler": "Microsoft.Azure.CreateUIDef",
+  "version": "0.1.2-preview",
+  "parameters": {
+    "basics": [
+      {
+        "name": "webAppName",
+        "type": "Microsoft.Common.TextBox",
+        "label": "Web application name",
+        "toolTip": "Web application name",
+        "defaultValue": "[concat('webapp', take(replace(guid(), '-', ''), 5))]",
+        "constraints": {
+          "required": true,
+          "validations": [
+            {
+              "regex": "^[a-zA-Z0-9]{1}$",
+              "message": "Can only contain alphanumeric values."
+            }
+          ]
+        },
+        "visible": true
+      },
+	  {
+        "name": "repoUrl",
+        "type": "Microsoft.Common.TextBox",
+        "label": "GitHub repository URL",
+        "toolTip": "GitHub repository URL",
+        "defaultValue": "",
+        "constraints": {
+          "required": true,
+          "validations": [
+            {
+              "regex": "^(https?://)(.+){1}$",
+              "message": "Must start with http or https."
+            }
+          ]
+        },
+        "visible": true
+      },
+	  {
+        "name": "repoBranch",
+        "type": "Microsoft.Common.TextBox",
+        "label": "Repository branch name",
+        "toolTip": "Repository branch name",
+        "defaultValue": "main",
+        "constraints": {
+          "required": true,
+          "validations": [
+            {
+              "regex": "^[a-zA-Z0-9]{1}$",
+              "message": "Can only contain alphanumeric values."
+            }
+          ]
+        },
+        "visible": true
+      }
+    ],
+    "steps": [],
+    "outputs": {
+      "location": "[location()]",
+      "webAppName": "[basics('webAppName')]",
+      "repoUrl": "[basics('repoUrl')]",
+      "repoBranch": "[basics('repoBranch')]"
+    }
+  }
+}
